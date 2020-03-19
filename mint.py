@@ -38,15 +38,24 @@ def getDataFrameForMonth(year, month):
 
 #Find all debits in a dataframe that are not credit card payments or transfers between accounts
 def getDebits(dataToParse):
-    allDebits = dataToParse[(dataToParse['Transaction Type'] == 'debit') & (dataToParse['Category'] != 'Credit Card Payment') & (dataToParse['Category'] != 'Transfer')]
+    allDebits = dataToParse[
+        (dataToParse['Transaction Type'] == 'debit') &
+        (dataToParse['Category'] != 'Credit Card Payment') & 
+        (dataToParse['Category'] != 'Transfer')
+        ]
     print(allDebits.sort_values(['Amount'], ascending=False))
     print("\n\n")
     print("Total Amount of Debits: " + str(len(allDebits.index)))
     print("Total Spent: " + str(allDebits['Amount'].sum()))
 
 
-#Return sample for March of 2020
-print("March: ")
-getDebits(getDataFrameForMonth(2020,3))
+
+
+
+year = int(input("Select a year (yyyy): "))
+month = int(input("Select a month (mm): "))
+#Return sample
+print(f'data for {month}/{year}')
+getDebits(getDataFrameForMonth(year,month))
 print("\n\n****************************\n\n")
-getDeposits(getDataFrameForMonth(2020,3))
+getDeposits(getDataFrameForMonth(year,month))
